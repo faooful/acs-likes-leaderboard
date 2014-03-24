@@ -14,25 +14,25 @@
 
 <div>
 <h2>Aber Comp Sci Likes Leaderboard</h2>
-<h5>24 hour totals over "Aber Comp Sci" and "Aber Comp Sci Q+A" (likes^2 / posts^2)</h5><br /><br />
+<h5>24 hour totals, (likes^2 / posts^2)</h5><br /><br />
 <ul>
 <?php
 
-// Facebook API location
+// Setup
 require_once('facebook-sdk/facebook.php');
 
 // URL
 $url = 'http://acs.assemblyco.de/';
 
 // Groups
-$acs_id = 259914077434319;
+$acs_id = 1234567890;
 $acs_qa_id = 272029619549924;
-$groups = [$acs_id, $acs_qa_id];
+$groups = [$acs_qa_id, $acs_id];
 
 // App config
 $config = [
-	'appId' => '1234567890',
-	'secret' => '1234567890',
+	'appId' => 1234567890,
+	'secret' => 1234567890,
 	'fileUpload' => false,
 	'allowSignedRequest' => false,
 ];
@@ -44,7 +44,7 @@ $likes = [];
 foreach ($groups as $group) {
     // Get all posts
     $posts = $fb->api($group .
-                        '/feed?since=1+day+ago&until=now&limit=10000');
+                        '/feed?since=24+hours+ago');
 
     foreach ($posts['data'] as $post) {
         $id = $post['from']['name'];
@@ -55,23 +55,29 @@ foreach ($groups as $group) {
         }
 
         if (! isset($likes[$id])) {
-            $likes[$id] = count($post['likes']);
+            if (isset($post['likes'])) {
+                $likes[$id] = count($post['likes']);
+            }
         } else {
-            $likes[$id] += count($post['likes']);
+            if (isset($post['likes'])) {
+                $likes[$id] += count($post['likes']);
+            }
         }
 
-        foreach ($post['comments']['data'] as $comment) {
-            $id = $comment['from']['name'];
-            if (! isset($users[$id])) {
-                $users[$id] = 1;
-            } else {
-                $users[$id]++;
-            }
+        if (isset($post['comments'])) {
+            foreach ($post['comments']['data'] as $comment) {
+                $id = $comment['from']['name'];
+                if (! isset($users[$id])) {
+                    $users[$id] = 1;
+                } else {
+                    $users[$id]++;
+                }
 
-            if (! isset($likes[$id])) {
-                $likes[$id] = $comment['like_count'];
-            } else {
-                $likes[$id] += $comment['like_count'];
+                if (! isset($likes[$id])) {
+                    $likes[$id] = $comment['like_count'];
+                } else {
+                    $likes[$id] += $comment['like_count'];
+                }
             }
         }
     }
@@ -89,9 +95,6 @@ foreach($likes as $name => $count) {
 
 arsort($popularity);
 foreach($popularity as $name => $ratio) {
-    if ($ratio == 0) {
-       break;
-    }
     echo '<li>';
     echo $name . ': ' . '<b>' . $ratio . '</b>' . '<br />';
     echo '</li>';
