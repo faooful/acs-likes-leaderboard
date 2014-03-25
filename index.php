@@ -1,5 +1,9 @@
 <!DOCTYPE html>
 <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="author" content="Charles Newey"/>
+
     <title>Aber Comp Sci Likes Leaderboard (24 hours)</title>
     <link rel="stylesheet" type="text/css" href="index.css">
 </head>
@@ -14,7 +18,7 @@
 
 <div>
 <h2>Aber Comp Sci Likes Leaderboard</h2>
-<h5>24 hour totals, (likes^2 / posts^2)</h5><br /><br />
+<h5>24 hour totals, ((num. likes * 2) - num. posts)</h5><br /><br />
     <ul>
 <?php
 
@@ -86,9 +90,8 @@ foreach ($groups as $group) {
 $popularity = [];
 arsort($likes);
 foreach($likes as $name => $count) {
-    $p = pow($users[$name], 2);
-    $l = pow($count, 2);
-    $pop = bcdiv($l, $p, 3);
+    $c = $count * 2;
+    $pop = $c - $users[$name];
     $popularity[$name] = $pop;
 }
 
@@ -102,5 +105,6 @@ foreach($popularity as $name => $ratio) {
 
 ?>
     </ul>
+    <br /><br /><a href="http://github.com/charlienewey/acs-likes-leaderboard">Source code</a> available on <a href="http://www.github.com">GitHub</a>
 </div>
 </html>
