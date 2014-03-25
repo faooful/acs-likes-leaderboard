@@ -25,7 +25,7 @@ require_once('facebook-sdk/facebook.php');
 $url = 'http://acs.assemblyco.de/';
 
 // Groups
-$acs_id = 1234567890;
+$acs_id = 259914077434319;
 $acs_qa_id = 272029619549924;
 $groups = [$acs_qa_id, $acs_id];
 
