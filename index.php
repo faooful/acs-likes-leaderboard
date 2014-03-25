@@ -1,4 +1,4 @@
-<html>
+<!DOCTYPE html>
 <head>
     <title>Aber Comp Sci Contribution Counter (24 hours)</title>
     <link rel="stylesheet" type="text/css" href="index.css">
@@ -15,7 +15,7 @@
 <div>
 <h2>Aber Comp Sci Likes Leaderboard</h2>
 <h5>24 hour totals, (likes^2 / posts^2)</h5><br /><br />
-<ul>
+    <ul>
 <?php
 
 // Setup
@@ -31,8 +31,8 @@ $groups = [$acs_qa_id, $acs_id];
 
 // App config
 $config = [
-	'appId' => 1234567890,
-	'secret' => 1234567890,
+	'appId' => '428410087261874',
+	'secret' => '69186c4b4230aff205f5b5f146e078d5',
 	'fileUpload' => false,
 	'allowSignedRequest' => false,
 ];
@@ -83,7 +83,6 @@ foreach ($groups as $group) {
     }
 }
 
-//echo('<h3>(likes ^ 2) / (posts ^ 2) (in last 48 hours)</h3>');
 $popularity = [];
 arsort($likes);
 foreach($likes as $name => $count) {
@@ -95,12 +94,13 @@ foreach($likes as $name => $count) {
 
 arsort($popularity);
 foreach($popularity as $name => $ratio) {
-    echo '<li>';
-    echo $name . ': ' . '<b>' . $ratio . '</b>' . '<br />';
-    echo '</li>';
+    echo "\t\t" . '<li>' . PHP_EOL;
+    echo "\t\t" . $name . ': ' . '<b>' . $ratio . '</b>';
+    echo PHP_EOL . "\t\t" . '<br />' . PHP_EOL;
+    echo "\t\t" . '</li>' . PHP_EOL;
 }
 
 ?>
-</ul>
+    </ul>
 </div>
 </html>
