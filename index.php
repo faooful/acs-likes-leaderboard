@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <head>
-    <title>Aber Comp Sci Contribution Counter (24 hours)</title>
+    <title>Aber Comp Sci Likes Leaderboard (24 hours)</title>
     <link rel="stylesheet" type="text/css" href="index.css">
 </head>
 <script>
